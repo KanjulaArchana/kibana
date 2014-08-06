@@ -8,7 +8,7 @@ function (angular,$) {
   angular
     .module('kibana.directives')
     .directive('kibanaPanel', function($compile, $rootScope) {
-      var container = '<div class="panel-container"></div>';
+      var container = '<div class="panel-container" ng-show="isPannelEmbed(panel.title)"></div>';
       var content = '<div class="panel-content" ng-style="{\'min-height\':row.height}"></div>';
 
       var panelHeader =
@@ -55,6 +55,11 @@ function (angular,$) {
             '<span ng-repeat="task in panelMeta.modals" class="row-button extra" ng-show="task.show">' +
               '<span bs-modal="task.partial" class="pointer"><i ' +
                 'bs-tooltip="task.description" ng-class="task.icon" class="pointer"></i></span>'+
+            '</span>' +
+
+            '<span class="row-button extra">' +
+              '<span ng-click="embed_panel(panel)" class="pointer">'+
+              '<i class="icon-code pointer" bs-tooltip="\'Embed\'"></i></span>'+
             '</span>' +
 
             '<span class="row-button extra" ng-show="panelMeta.loading == true">' +

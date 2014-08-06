@@ -1,0 +1,31 @@
+<div class="container-fluid main">
+  <div>
+    <div class="kibana-container container">
+      <div class="kibana-row" ng-controller="RowCtrl" ng-repeat="(row_name, row) in dashboard.current.rows" ng-style="row_style(row)">
+        <div class="row-control">
+          <div style="padding-top:0px" ng-if="!row.collapse">
+            <div
+              ng-repeat="(name, panel) in row.panels|filter:isPanel"
+              ng-cloak ng-hide="panel.hide || !isRowEmbed($index)"
+              kibana-panel type='panel.type' resizable
+              class="panel nospace" ng-class="{'dragInProgress':dashboard.panelDragging}"
+              style="position:relative"  ng-style="{'width':!panel.span?'100%':((panel.span/1.2)*10)+'%'}"
+              data-drop="true" ng-model="row.panels" data-jqyoui-options
+              jqyoui-droppable="{index:$index,mutate:false, onOver:'panelMoveOver(true)',onOut:'panelMoveOut'}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  body, .kibana-container.container {padding: 0;}
+  .kibana-row {min-height: 0 !important;}
+  .panel {border: 0;}
+  .navbar .brand,
+  .navbar > .navbar-inner > .container-fluid > ul.nav > li,
+  .navbar > .navbar-inner > .container-fluid > ul.nav > li[ng-controller=PulldownCtrl],
+  .extra.row-button,
+  .panel-title {display: none;}
+</style>

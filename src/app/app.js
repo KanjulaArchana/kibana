@@ -81,6 +81,29 @@ function (angular, $, _, appLevelRequire) {
       .when('/dashboard/:kbnType/:kbnId/:params', {
         templateUrl: 'app/partials/dashboard.html'
       })
+
+      .when('/embed/:kbnType/:kbnId', {
+        templateUrl: 'app/partials/embed.html',
+      })
+      .when('/embed/:kbnType/:kbnId/row/:row_id/', {
+        templateUrl: 'app/partials/embed.html'
+      })
+      .when('/embed/:kbnType/:kbnId/:row_id/:pannel_name', {
+        templateUrl: 'app/partials/embed.html'
+      })
+      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name', {
+        templateUrl: 'app/partials/embed.html'
+      })
+      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/navbar/:navbar', {
+        templateUrl: 'app/partials/embed.html'
+      })
+      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/legend/:legend', {
+        templateUrl: 'app/partials/embed.html'
+      })
+      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/navbar/:navbar/legend/:legend', {
+        templateUrl: 'app/partials/embed.html'
+      })
+
       .otherwise({
         redirectTo: 'dashboard'
       });

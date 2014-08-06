@@ -8,7 +8,7 @@ function (angular, app, _) {
 
   var module = angular.module('kibana.controllers');
 
-  module.controller('RowCtrl', function($scope, $rootScope, $timeout,ejsResource, querySrv) {
+  module.controller('RowCtrl', function($scope, $rootScope, $timeout, $routeParams, $modal, $q, ejsResource, querySrv, alertSrv) {
       var _d = {
         title: "Row",
         height: "150px",
@@ -20,6 +20,33 @@ function (angular, app, _) {
       };
 
       _.defaults($scope.row,_d);
+
+      $scope.embed = {
+          row_id: $routeParams.row_id,
+          pannel_name: $routeParams.pannel_name,
+          navbar: $routeParams.navbar,
+          legend: $routeParams.legend
+      };
+
+      if (angular.isDefined($scope.embed.navbar) && $scope.embed.navbar == "false")
+          $(".navbar").hide();
+
+      if (angular.isDefined($scope.embed.legend) && $scope.embed.legend == "false")
+          $timeout(function () { $(".terms-legend, .histogram-legend, span[ng-show='panel.legend']").hide(); }, 500);
+
+      $scope.isRowEmbed = function(idx) {
+          if (angular.isUndefined($scope.embed.row_id))
+              return true;
+
+          return (idx == $scope.embed.row_id);
+      };
+
+      $scope.isPannelEmbed = function(name) {
+          if (angular.isUndefined($scope.embed.pannel_name))
+              return true;
+
+          return (name == $scope.embed.pannel_name);
+      };
 
       $scope.init = function() {
         $scope.querySrv = querySrv;
@@ -62,6 +89,22 @@ function (angular, app, _) {
         var clone = angular.copy(panel);
         $scope.row.panels.push(clone);
       };
+
+      $scope.embed_panel = function(panel) {
+          $scope.current_panel = panel.title;
+          $scope.embed_width = 300;
+          $scope.embed_height = 150;
+          var modalPromise = $modal({template: 'app/partials/embed_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
+
+          $q.when(modalPromise).then(function(modalEl) {
+              modalEl.modal('show');
+          });
+      };
+
+      // $scope.embed_modal = {
+      //     title: "Embed",
+      //     content:
+      // };
 
       /** @scratch /panels/0
        * [[panels]]
