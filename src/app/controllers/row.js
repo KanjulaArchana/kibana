@@ -24,16 +24,12 @@ function (angular, app, _) {
       $scope.embed = {
           pannel_name: $routeParams.pannel_name,
           navbar: $routeParams.navbar,
-          legend: $routeParams.legend
       };
 
       if (angular.isDefined($scope.embed.navbar) && $scope.embed.navbar == "false")
           $(".navbar").hide();
       else
           $(".navbar").show();
-
-      if (angular.isDefined($scope.embed.legend) && $scope.embed.legend == "false")
-          $timeout(function () { $(".terms-legend, .histogram-legend, span[ng-show='panel.legend']").hide(); }, 500);
 
       $scope.isPannelEmbed = function(name) {
           if (angular.isUndefined($scope.embed.pannel_name))

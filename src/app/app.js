@@ -88,12 +88,6 @@ function (angular, $, _, appLevelRequire) {
       .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/navbar/:navbar', {
         templateUrl: 'app/partials/embed.html'
       })
-      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/legend/:legend', {
-        templateUrl: 'app/partials/embed.html'
-      })
-      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/navbar/:navbar/legend/:legend', {
-        templateUrl: 'app/partials/embed.html'
-      })
 
       .otherwise({
         redirectTo: 'dashboard'
