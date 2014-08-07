@@ -82,8 +82,8 @@ function (angular, app, _) {
 
       $scope.embed_panel = function(panel) {
           $scope.current_panel = panel.title;
-          $scope.embed_width = 300;
-          $scope.embed_height = 150;
+          $scope.embed_width = 600;
+          $scope.embed_height = 400;
           var modalPromise = $modal({template: 'app/partials/embed_modal.html', persist: true, show: false, backdrop: 'static', scope: $scope});
 
           $q.when(modalPromise).then(function(modalEl) {
