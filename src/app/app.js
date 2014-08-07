@@ -82,6 +82,10 @@ function (angular, $, _, appLevelRequire) {
         templateUrl: 'app/partials/dashboard.html'
       })
 
+      .when('/embed/:kbnType/:kbnId', {
+        templateUrl: 'app/partials/dashboard.html',
+      })
+
       .when('/embed/:kbnType/:kbnId/pannel/:pannel_name', {
         templateUrl: 'app/partials/embed.html'
       })

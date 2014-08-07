@@ -10,13 +10,19 @@ function (angular, config, _) {
   var module = angular.module('kibana.controllers');
 
   module.controller('DashCtrl', function(
-    $scope, $route, ejsResource, fields, dashboard, alertSrv, panelMove, esVersion, kbnVersion) {
+    $scope, $route, $routeParams, ejsResource, fields, dashboard, alertSrv, panelMove, esVersion, kbnVersion) {
 
     $scope.Math = Math;
 
     $scope.editor = {
       index: 0
     };
+
+    $scope.routeParams = $routeParams;
+    $scope.routeParams._gets = null;
+    var gets = location.href.split('?');
+    if (angular.isDefined(gets[1]))
+      $scope._gets = "?" + gets[1];
 
     // For moving stuff around the dashboard.
     $scope.panelMoveDrop = panelMove.onDrop;
