@@ -8,7 +8,7 @@ function (angular, app, _) {
 
   var module = angular.module('kibana.controllers');
 
-  module.controller('RowCtrl', function($scope, $rootScope, $timeout, $routeParams, $modal, $q, ejsResource, querySrv, alertSrv) {
+  module.controller('RowCtrl', function($scope, $rootScope, $timeout, $routeParams, $modal, $q, ejsResource, querySrv) {
       var _d = {
         title: "Row",
         height: "150px",
