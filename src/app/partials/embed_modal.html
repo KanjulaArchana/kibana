@@ -14,11 +14,11 @@
     <hr />
 
     <label>HTML</label>
-    <pre>&lt;iframe width="{{embed_width}}" height="{{embed_height}}" src="{{config.elasticsearch}}/#/embed/{{routeParams.kbnType}}/{{routeParams.kbnId}}/pannel/{{current_panel}}<span ng-hide="embed_navbar">/navbar/false</span><span ng-show="_gets">{{_gets}}</span>" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</pre>
+    <pre>&lt;iframe width="{{embed_width}}" height="{{embed_height}}" src="{{config.elasticsearch}}/#/embed/{{routeParams.kbnType}}/{{routeParams.kbnId}}/pannel/{{current_panel}}<span ng-hide="embed_navbar">/navbar/false</span><span ng-show="_gets">{{_gets}}</span>" frameborder="0"&gt;&lt;/iframe&gt;</pre>
 
     <label>Preview</label>
 
-    <iframe width="{{embed_width}}" height="{{embed_height}}" ng-src="{{config.elasticsearch}}/#/embed/{{routeParams.kbnType}}/{{routeParams.kbnId}}/pannel/{{current_panel}}{{embed_navbar?'':'/navbar/false'}}{{_gets?_gets:''}}" frameborder="0" allowfullscreen></iframe>
+    <iframe width="{{embed_width}}" height="{{embed_height}}" ng-src="{{config.elasticsearch}}/#/embed/{{routeParams.kbnType}}/{{routeParams.kbnId}}/pannel/{{current_panel}}{{embed_navbar?'':'/navbar/false'}}{{_gets?_gets:''}}" frameborder="0"></iframe>
 
   </div>
 
