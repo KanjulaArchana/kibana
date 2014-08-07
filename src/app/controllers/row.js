@@ -29,6 +29,8 @@ function (angular, app, _) {
 
       if (angular.isDefined($scope.embed.navbar) && $scope.embed.navbar == "false")
           $(".navbar").hide();
+      else
+          $(".navbar").show();
 
       if (angular.isDefined($scope.embed.legend) && $scope.embed.legend == "false")
           $timeout(function () { $(".terms-legend, .histogram-legend, span[ng-show='panel.legend']").hide(); }, 500);
