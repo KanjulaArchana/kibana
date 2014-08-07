@@ -4,24 +4,36 @@
 </div>
 <div class="modal-body">
 
-  <div>
-    <label>Iframe Size:</label>
-    <input ng-model="embed_width" /> x <input ng-model="embed_height" />
-    <label>
-      <input type="checkbox" ng-model="embed_navbar" />
-      Show TimePicker
-    </label>
-    <hr />
+  <div class="editor-row">
+    <div class="section">
+      <div class="editor-option">
+        <label class="small">Width</label>
+        <input class="input-small" type="text" ng-model="embed_width" />
+      </div>
 
-    <label>HTML</label>
+      <div class="editor-option">
+        <label class="small">Height</label>
+        <input class="input-small" type="text" ng-model="embed_height" />
+      </div>
+
+      <div class="editor-option">
+        <label class="small">TimePicker</label>
+        <input type="checkbox" ng-model="embed_navbar" />
+      </div>
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <h4>HTML</h4>
     <pre>&lt;iframe width="{{embed_width}}" height="{{embed_height}}" src="{{config.elasticsearch}}/#/embed/{{routeParams.kbnType}}/{{routeParams.kbnId}}/pannel/{{current_panel}}<span ng-hide="embed_navbar">/navbar/false</span><span ng-show="_gets">{{_gets}}</span>" frameborder="0"&gt;&lt;/iframe&gt;</pre>
 
-    <label>Preview</label>
+  </div>
+  <div class="row-fluid">
+    <h4>Preview</h4>
 
     <iframe width="{{embed_width}}" height="{{embed_height}}" ng-src="{{config.elasticsearch}}/#/embed/{{routeParams.kbnType}}/{{routeParams.kbnId}}/pannel/{{current_panel}}{{embed_navbar?'':'/navbar/false'}}{{_gets?_gets:''}}" frameborder="0"></iframe>
 
   </div>
-
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-success" ng-click="dismiss()">Close</button>
