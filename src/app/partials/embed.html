@@ -6,7 +6,7 @@
           <div style="padding-top:0px" ng-if="!row.collapse">
             <div
               ng-repeat="(name, panel) in row.panels|filter:isPanel"
-              ng-cloak ng-hide="panel.hide || !isRowEmbed($index)"
+              ng-cloak ng-hide="panel.hide"
               kibana-panel type='panel.type' resizable
               class="panel nospace" ng-class="{'dragInProgress':dashboard.panelDragging}"
               style="position:relative"  ng-style="{'width':!panel.span?'100%':((panel.span/1.2)*10)+'%'}"
@@ -28,4 +28,10 @@
   .navbar > .navbar-inner > .container-fluid > ul.nav > li[ng-controller=PulldownCtrl],
   .extra.row-button,
   .panel-title {display: none;}
+
+  .navbar > .navbar-inner > .container-fluid > ul.nav > li:nth-child(2),
+  .navbar > .navbar-inner > .container-fluid > ul.nav > li[ng-controller=PulldownCtrl]:nth-child(2) {
+    display: block;
+  }
+
 </style>

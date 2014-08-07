@@ -22,7 +22,6 @@ function (angular, app, _) {
       _.defaults($scope.row,_d);
 
       $scope.embed = {
-          row_id: $routeParams.row_id,
           pannel_name: $routeParams.pannel_name,
           navbar: $routeParams.navbar,
           legend: $routeParams.legend
@@ -33,13 +32,6 @@ function (angular, app, _) {
 
       if (angular.isDefined($scope.embed.legend) && $scope.embed.legend == "false")
           $timeout(function () { $(".terms-legend, .histogram-legend, span[ng-show='panel.legend']").hide(); }, 500);
-
-      $scope.isRowEmbed = function(idx) {
-          if (angular.isUndefined($scope.embed.row_id))
-              return true;
-
-          return (idx == $scope.embed.row_id);
-      };
 
       $scope.isPannelEmbed = function(name) {
           if (angular.isUndefined($scope.embed.pannel_name))
