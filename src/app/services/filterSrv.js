@@ -8,7 +8,7 @@ define([
 
   var module = angular.module('kibana.services');
 
-  module.service('filterSrv', function(dashboard, ejsResource, $rootScope, $timeout) {
+  module.service('filterSrv', function(dashboard, ejsResource, $rootScope, $timeout, $routeParams) {
     // Create an object to hold our service state on the dashboard
     dashboard.current.services.filter = dashboard.current.services.filter || {};
 
@@ -46,6 +46,9 @@ define([
     // This is used both for adding filters and modifying them.
     // If an id is passed, the filter at that id is updated
     this.set = function(filter,id,noRefresh) {
+      if (angular.isDefined($routeParams.pannel_name))
+        return false;
+
       var _r;
 
       _.defaults(filter,{
