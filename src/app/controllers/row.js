@@ -8,7 +8,7 @@ function (angular, app, _) {
 
   var module = angular.module('kibana.controllers');
 
-  module.controller('RowCtrl', function($scope, $rootScope, $timeout, $routeParams, $modal, $q, ejsResource, querySrv) {
+  module.controller('RowCtrl', function($scope, $rootScope, $timeout, $routeParams, $modal, $q, ejsResource, querySrv, filterSrv) {
       var _d = {
         title: "Row",
         height: "150px",
@@ -22,14 +22,24 @@ function (angular, app, _) {
       _.defaults($scope.row,_d);
 
       $scope.embed = {
-          pannel_name: $routeParams.pannel_name,
-          navbar: $routeParams.navbar,
+        pannel_name: $routeParams.pannel_name,
+        navbar: $routeParams.navbar,
+        relative_time: $routeParams.relative_time
       };
 
       if (angular.isDefined($scope.embed.navbar) && $scope.embed.navbar == "false")
-          $(".navbar").hide();
+        $(".navbar").hide();
       else
-          $(".navbar").show();
+        $(".navbar").show();
+
+      if (angular.isDefined($scope.embed.relative_time))
+        filterSrv.set({
+          editing   : false,
+          type      : 'time',
+          field     : '@timestamp',
+          from      : 'now-12h',
+          to        : 'now'
+        }, undefined, true);
 
       $scope.isPannelEmbed = function(name) {
           if (angular.isUndefined($scope.embed.pannel_name))

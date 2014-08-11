@@ -84,7 +84,10 @@ function (angular, $, _, appLevelRequire) {
       .when('/embed/:kbnType/:kbnId/pannel/:pannel_name', {
         templateUrl: 'app/partials/embed.html'
       })
-      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/navbar/:navbar', {
+      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/:relative_time', {
+        templateUrl: 'app/partials/embed.html'
+      })
+      .when('/embed/:kbnType/:kbnId/pannel/:pannel_name/:relative_time/navbar/:navbar', {
         templateUrl: 'app/partials/embed.html'
       })
 
