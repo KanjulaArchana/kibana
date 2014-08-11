@@ -81,11 +81,6 @@ function (angular, $, _, appLevelRequire) {
       .when('/dashboard/:kbnType/:kbnId/:params', {
         templateUrl: 'app/partials/dashboard.html'
       })
-
-      .when('/embed/:kbnType/:kbnId', {
-        templateUrl: 'app/partials/dashboard.html',
-      })
-
       .when('/embed/:kbnType/:kbnId/pannel/:pannel_name', {
         templateUrl: 'app/partials/embed.html'
       })
