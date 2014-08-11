@@ -32,14 +32,16 @@ function (angular, app, _) {
       else
         $(".navbar").show();
 
-      if (angular.isDefined($scope.embed.relative_time))
+      if (angular.isDefined($scope.embed.relative_time)) {
+        filterSrv.removeByType('time');
         filterSrv.set({
           editing   : false,
           type      : 'time',
           field     : '@timestamp',
-          from      : 'now-12h',
+          from      : 'now-' + $scope.embed.relative_time,
           to        : 'now'
         }, undefined, true);
+      }
 
       $scope.isPannelEmbed = function(name) {
           if (angular.isUndefined($scope.embed.pannel_name))
