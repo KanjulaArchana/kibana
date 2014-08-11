@@ -17,17 +17,16 @@
       </div>
 
       <div class="editor-option">
-        <label class="small">TimePicker</label>
-        <input type="checkbox" ng-model="embed_navbar" />
-      </div>
-
-      <div class="editor-option">
-        <label class="small">Relative Time</label>
+        <label class="small">RelativeTime</label>
         <select ng-model="relativeTime"
                 ng-options="option as option for option in ['5m','15m','1h','6h','12h','24h','2d','7d','30d']"
                 ng-init="relativeTime='24h'"></select>
       </div>
 
+      <div class="editor-option">
+        <label class="small">Show TimePicker</label>
+        <input type="checkbox" ng-model="embed_navbar" />
+      </div>
 
     </div>
   </div>
