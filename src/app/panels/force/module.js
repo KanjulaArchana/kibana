@@ -70,6 +70,9 @@ define([
 
     $scope.init = function() {
       console.log('force scope init');
+      $scope.$on('refresh',function(){
+        $scope.get_data();
+      });
       $scope.get_data();
     };
 
