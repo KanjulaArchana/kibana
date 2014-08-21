@@ -103,7 +103,7 @@ define([
           .facetFilter($scope.ejs.QueryFilter(
             $scope.ejs.FilteredQuery(
               boolQuery,
-              filterSrv.getBoolFilter(filterSrv.ids)
+              filterSrv.getBoolFilter(filterSrv.ids())
             )
           ))
         )
