@@ -283,6 +283,8 @@ define([
             .enter().append("svg:path")
               .attr("class", "link-path")
               //.attr("marker-end", "url(#end)")
+              // Disabled because very hard to put at the right place.
+              // Typically "not behind the circle".
               .style('fill', 'none')
               .style('stroke', '#8c8c8c')
               .style('stroke-width', function (link) {
