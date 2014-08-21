@@ -29,7 +29,8 @@ define([
 
     $scope.panelMeta = {
       editorTabs : [
-        {title:'Queries', src:'app/partials/querySelect.html'}
+        {title:'Queries', src:'app/partials/querySelect.html'},
+        {title:'Style', src:'app/panels/force/styleEditor.html'}
       ],
       modals : [
         {
@@ -64,7 +65,8 @@ define([
       queries     : {
         mode        : 'all',
         ids         : []
-      }
+      },
+      node_size: 15
     };
     _.defaults($scope.panel,_d);
 
@@ -303,7 +305,7 @@ define([
 
           // add the nodes
           node.append("circle")
-              .attr("r", 25)
+              .attr("r", scope.panel.node_size)
               .style('fill', '#2980b9')
               .on('mouseover', function(d) {
                 console.log('Node: ', d);
