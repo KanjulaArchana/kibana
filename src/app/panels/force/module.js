@@ -144,14 +144,14 @@ define([
         request = $scope.ejs.Request().indices(dashboard.indices);
         _.each($scope.data.src_terms, function(src) {
           _.each($scope.data.dst_terms, function(dst) {
-
-            request = request
-              .facet(ejs.FilterFacet(src + '->' + dst)
-              .filter(ejs.AndFilter([
-                ejs.TermFilter($scope.panel.src_field, src),
-                ejs.TermFilter($scope.panel.dst_field, dst)
-              ]))
-              ).size(0);
+            if (src != dst)
+              request = request
+                .facet(ejs.FilterFacet(src + '->' + dst)
+                .filter(ejs.AndFilter([
+                  ejs.TermFilter($scope.panel.src_field, src),
+                  ejs.TermFilter($scope.panel.dst_field, dst)
+                ]))
+                ).size(0);
 
           });
         });
