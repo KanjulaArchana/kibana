@@ -1,5 +1,10 @@
 <div class="editor-row">
   <div class="editor-option">
+	  <h6>&nbsp;</h6>
+      <i class="icon-circle pointer" data-unique="1" bs-popover="'app/panels/force/meta.html'" data-placement="right" ng-style="{color: panel.color}"></i>{{color}}</td>
+  </div>
+
+  <div class="editor-option">
 	<form>
 	  <h6>Source Field <tip>Field containing the source of the transaction (source IP address, source device, etc.)</tip></h6>
 	  <input bs-typeahead="fields.list" type="text" class="input-small" ng-model="panel.src_field" ng-change="set_refresh(true)">

@@ -66,6 +66,7 @@ define([
         mode        : 'all',
         ids         : []
       },
+      color    : null,
       node_size: 15
     };
     _.defaults($scope.panel,_d);
@@ -176,7 +177,23 @@ define([
       $scope.inspector = angular.toJson(JSON.parse(request.toString()),true);
     };
 
+    $scope.set_refresh = function (state) {
+      $scope.refresh = state;
+    };
 
+    // useless ?
+    $scope.close_edit = function() {
+      if($scope.refresh) {
+        $scope.get_data();
+      }
+      $scope.refresh =  false;
+      $scope.$emit('render');
+    };
+
+    $scope.render = function() {
+      $scope.$emit('render');
+    };
+    // !useless ?
   });
 
   module.directive('force', function() {
@@ -203,6 +220,9 @@ define([
           elem.css({height:scope.panel.height||scope.row.height});
           elem.text('');
           scope.panelMeta.loading = false;
+
+          if (scope.panel.color == null)
+              scope.panel.color = "#7ab6b6";
 
           // compute the nodes and the links
           var links = [], nodes = {};
@@ -303,13 +323,40 @@ define([
               .attr("class", "node")
               .call(force.drag);
 
+          var LightenDarkenColor = function(col, amt) {
+              var usePound = false;
+
+              if (col[0] == "#") {
+                  col = col.slice(1);
+                  usePound = true;
+              }
+
+              var num = parseInt(col,16);
+              var r = (num >> 16) + amt;
+
+              if (r > 255) r = 255;
+              else if  (r < 0) r = 0;
+
+              var b = ((num >> 8) & 0x00FF) + amt;
+
+              if (b > 255) b = 255;
+              else if  (b < 0) b = 0;
+
+              var g = (num & 0x0000FF) + amt;
+
+              if (g > 255) g = 255;
+              else if (g < 0) g = 0;
+
+              return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+          }
+
           // add the nodes
           node.append("circle")
               .attr("r", scope.panel.node_size)
-              .style('fill', '#2980b9')
+              .style('fill', scope.panel.color)
               .on('mouseover', function(d) {
                 console.log('Node: ', d);
-                d3.select(this).style('fill', '#7ab6b6');
+                  d3.select(this).style('fill', LightenDarkenColor(scope.panel.color, 40));
                 svg.selectAll('.link-path')
                   .filter(function(link) {
                       return link.source === d || link.target === d;
@@ -317,7 +364,7 @@ define([
                   .style('stroke', '#7ab6b6');
               })
               .on('mouseout', function() {
-                d3.select(this).style('fill', '#2980b9');
+                d3.select(this).style('fill', scope.panel.color);
                 svg.selectAll('.link-path')
                   .style('stroke', '#8c8c8c');
               });

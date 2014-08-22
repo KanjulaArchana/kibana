@@ -1,0 +1,16 @@
+<div class="panel-query-meta row-fluid" style="width:260px">
+  <style>
+    .panel-query-meta fieldset label {
+      margin-top: 3px;
+    }
+  </style>
+
+    <div>
+      <i ng-repeat="c in querySrv.colors" class="pointer" ng-class="{'icon-circle-blank':panel.color == c,'icon-circle':panel.color != c}" ng-style="{color:c}" ng-click="panel.color = c;set_refresh(true);"></i>
+    </div>
+
+  <div class="pull-right">
+    <a class="btn btn-mini btn-value-remove-color" ng-click="panel.color = null;set_refresh(true);" ng-show="panel.color" class="pointer">Remove color</a>
+    <input class="btn btn-mini" ng-click="set_refresh(true);dismiss();" type="submit"/ value="Close">
+  </div>
+</div>
