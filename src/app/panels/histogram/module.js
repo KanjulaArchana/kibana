@@ -655,7 +655,8 @@ function (angular, app, $, _, kbn, moment, timeSeries, numeral) {
               yaxis: {
                 show: scope.panel['y-axis'],
                 min: scope.panel.grid.min,
-                max: scope.panel.percentage && scope.panel.stack ? 100 : scope.panel.grid.max
+                max: scope.panel.percentage && scope.panel.stack ? 100 : scope.panel.grid.max,
+                color: scope.panel.grid.yAxisColor || '#555'
               },
               xaxis: {
                 timezone: scope.panel.timezone,
@@ -663,9 +664,10 @@ function (angular, app, $, _, kbn, moment, timeSeries, numeral) {
                 mode: "time",
                 min: _.isUndefined(scope.range.from) ? null : scope.range.from.getTime(),
                 max: _.isUndefined(scope.range.to) ? null : scope.range.to.getTime(),
-                timeformat: time_format(scope.panel.interval),
+                timeformat: scope.panel.interval_format || time_format(scope.panel.interval),
                 label: "Datetime",
-                ticks: elem.width()/100
+                ticks: elem.width()/100,
+                color: scope.panel.grid.xAxisColor || '#555'
               },
               grid: {
                 backgroundColor: null,
@@ -761,12 +763,18 @@ function (angular, app, $, _, kbn, moment, timeSeries, numeral) {
           return "%H:%M:%S";
         }
 
-        var $tooltip = $('<div>');
+        var $tooltip = $('<div id="PLOT_TOOLTIP">');
         elem.bind("plothover", function (event, pos, item) {
-          var group, value, timestamp, interval;
-          interval = " per " + (scope.panel.scaleSeconds ? '1s' : scope.panel.interval);
+          var group, value, timestamp, interval, html, date_format;
+
+          if (scope.panel.tooltip.no_interval)
+            interval = "";
+          else
+            interval = " per " + (scope.panel.scaleSeconds ? '1s' : scope.panel.interval);
           if (item) {
-            if (item.series.info.alias || scope.panel.tooltip.query_as_alias) {
+            if (scope.panel.tooltip.no_alias) {
+                group = kbn.query_color_dot(item.series.color, 10) + ' ';
+            } else if (item.series.info.alias || scope.panel.tooltip.query_as_alias) {
               group = '<small style="font-size:0.9em;">' +
                 '<i class="icon-circle" style="color:'+item.series.color+';"></i>' + ' ' +
                 (item.series.info.alias || item.series.info.query)+
@@ -785,12 +793,18 @@ function (angular, app, $, _, kbn, moment, timeSeries, numeral) {
             } else {
               value = numeral(value).format('0,0[.]000');
             }
+            date_format = scope.panel.tooltip.date_format || 'YYYY-MM-DD HH:mm:ss';
             timestamp = scope.panel.timezone === 'browser' ?
-              moment(item.datapoint[0]).format('YYYY-MM-DD HH:mm:ss') :
-              moment.utc(item.datapoint[0]).format('YYYY-MM-DD HH:mm:ss');
+              moment(item.datapoint[0]).format(date_format) :
+              moment.utc(item.datapoint[0]).format(date_format);
+
+            if (scope.panel.tooltip.format_light)
+               html = '<span class="date">' + timestamp + "</span>" + '<br>' + group + value
+            else
+               html = group + value + interval + " @ " + timestamp
             $tooltip
               .html(
-                group + value + interval + " @ " + timestamp
+                html
               )
               .place_tt(pos.pageX, pos.pageY);
           } else {
